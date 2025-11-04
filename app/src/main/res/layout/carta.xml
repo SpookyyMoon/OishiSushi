@@ -143,7 +143,7 @@
         app:queryBackground="@android:color/transparent"
         app:searchIcon="@drawable/iconobuscar" />
 
-    <Button
+    <FrameLayout
         android:id="@+id/botonCategoriaRolls"
         android:layout_width="64dp"
         android:layout_height="34dp"
@@ -157,7 +157,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <FrameLayout
         android:id="@+id/botonCategoriaRamen"
         android:layout_width="64dp"
         android:layout_height="34dp"
@@ -171,7 +171,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <FrameLayout
         android:id="@+id/botonCategoriaSushi"
         android:layout_width="64dp"
         android:layout_height="34dp"
