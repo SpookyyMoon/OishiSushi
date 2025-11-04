@@ -11,41 +11,71 @@
         android:id="@+id/imageView6"
         android:layout_width="121dp"
         android:layout_height="83dp"
-        app:srcCompat="@drawable/mesa2"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="434dp" />
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="434dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="334dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mesa2" />
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="91dp"
         android:layout_height="105dp"
-        app:srcCompat="@drawable/mesa5"
-        tools:layout_editor_absoluteX="286dp"
-        tools:layout_editor_absoluteY="426dp" />
+        android:layout_marginStart="286dp"
+        android:layout_marginTop="426dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="320dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mesa5" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="121dp"
         android:layout_height="83dp"
-        app:srcCompat="@drawable/mesa1"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="321dp" />
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="321dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="447dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mesa1" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="121dp"
         android:layout_height="83dp"
-        app:srcCompat="@drawable/mesa3"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="546dp" />
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="546dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="222dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mesa3" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="91dp"
         android:layout_height="105dp"
-        app:srcCompat="@drawable/mesa4"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="426dp" />
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="426dp"
+        android:layout_marginEnd="281dp"
+        android:layout_marginBottom="320dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mesa4" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -93,6 +123,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginEnd="29dp"
         android:layout_marginBottom="612dp"
+        android:fontFamily="@font/poppins"
         android:text="Antes de empezar, selecciona tu mesa para que te llevemos el sushi directo a ella!"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -110,9 +141,10 @@
         android:layout_marginEnd="119dp"
         android:layout_marginBottom="81dp"
         android:backgroundTint="#FD8663"
+        android:fontFamily="@font/poppins"
         android:shadowColor="#0B0A0A"
         android:text="Siguiente"
-        android:textSize="24sp"
+        android:textSize="23sp"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
