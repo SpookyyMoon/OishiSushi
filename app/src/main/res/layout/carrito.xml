@@ -158,9 +158,15 @@
         android:id="@+id/imageView16"
         android:layout_width="343dp"
         android:layout_height="8dp"
-        app:srcCompat="@drawable/separador"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="595dp" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="595dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="248dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/separador" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
