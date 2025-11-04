@@ -20,6 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SeleccionMesa">
+
+        </activity>
+        <activity android:name=".CarritoVacio">
+
+        </activity>
+
+        <activity android:name=".Carta">
+
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -7,7 +7,7 @@
     android:background="#FFFF">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/atras"
         android:layout_width="27dp"
         android:layout_height="17dp"
         android:layout_marginStart="16dp"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/atras" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo"
         android:layout_width="155dp"
         android:layout_height="111dp"
         android:layout_marginTop="1dp"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/logo" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/carrito"
         android:layout_width="38dp"
         android:layout_height="21dp"
         android:layout_marginStart="339dp"
@@ -144,7 +144,7 @@
         app:searchIcon="@drawable/iconobuscar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/botonCategoriaRolls"
         android:layout_width="64dp"
         android:layout_height="34dp"
         android:layout_marginStart="164dp"
@@ -158,7 +158,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/botonCategoriaRamen"
         android:layout_width="64dp"
         android:layout_height="34dp"
         android:layout_marginStart="235dp"
@@ -172,7 +172,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/botonCategoriaSushi"
         android:layout_width="64dp"
         android:layout_height="34dp"
         android:layout_marginStart="93dp"
@@ -193,10 +193,10 @@
         android:layout_marginEnd="259dp"
         android:translationX="5dp"
         android:translationY="-4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="@+id/botonCategoriaSushi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="@+id/botonCategoriaSushi"
         app:layout_constraintVertical_bias="0.833"
         app:srcCompat="@drawable/sushiicono" />
 
@@ -208,10 +208,10 @@
         android:layout_marginEnd="189dp"
         android:translationX="5dp"
         android:translationY="-3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
+        app:layout_constraintBottom_toBottomOf="@+id/botonCategoriaRolls"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/botonCategoriaRolls"
         app:layout_constraintVertical_bias="0.75"
         app:srcCompat="@drawable/rollsicono" />
 
@@ -223,10 +223,10 @@
         android:layout_marginEnd="126dp"
         android:translationX="6dp"
         android:translationY="-2.5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="@+id/botonCategoriaRamen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button4"
+        app:layout_constraintTop_toTopOf="@+id/botonCategoriaRamen"
         app:layout_constraintVertical_bias="0.625"
         app:srcCompat="@drawable/ramenicono" />
 
@@ -238,10 +238,10 @@
         android:layout_marginEnd="244dp"
         android:text="Sushi"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="@+id/botonCategoriaSushi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintTop_toTopOf="@+id/botonCategoriaSushi" />
 
     <TextView
         android:id="@+id/textView6"
@@ -252,10 +252,10 @@
         android:text="Rolls"
         android:textSize="10sp"
         android:translationX="-3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
+        app:layout_constraintBottom_toBottomOf="@+id/botonCategoriaRolls"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+        app:layout_constraintTop_toTopOf="@+id/botonCategoriaRolls" />
 
     <TextView
         android:id="@+id/textView7"
@@ -265,10 +265,10 @@
         android:layout_marginEnd="101dp"
         android:text="Ramen"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="@+id/botonCategoriaRamen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        app:layout_constraintTop_toTopOf="@+id/botonCategoriaRamen" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="328dp"
