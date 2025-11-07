@@ -2,13 +2,30 @@ package com.example.oishisishi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SeleccionMesa extends AppCompatActivity {
+import com.example.oishisishi.adaptadores.ApiAdapter;
+import com.example.oishisishi.entidades.Comandas;
+import com.example.oishisishi.entidades.Mesas;
+import com.example.oishisishi.entidades.Platos;
+import com.example.oishisishi.servicios.ApiService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class SeleccionMesa extends AppCompatActivity implements Callback<List<Mesas>> {
     ImageView botonAtras, mesa1, mesa2, mesa3, mesa4, mesa5;
+    List<Mesas> listaMesas;
+
+    Mesas mesaSeleccionada;
 
     @Override
     protected void onResume() {
@@ -19,6 +36,9 @@ public class SeleccionMesa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.seleccion_mesa);
+        Call<List<Mesas>> call = ApiAdapter.getApiService().getMesas();
+        call.enqueue(this);
+
         botonAtras = findViewById(R.id.atras);
         mesa1 = findViewById(R.id.mesa1);
         mesa2 = findViewById(R.id.mesa2);
@@ -26,54 +46,123 @@ public class SeleccionMesa extends AppCompatActivity {
         mesa4 = findViewById(R.id.mesa4);
         mesa5 = findViewById(R.id.mesa5);
 
+        // Desactiva las mesas hasta cargarse por retrofit (Evita null pointer)
+        mesa1.setEnabled(false);
+        mesa2.setEnabled(false);
+        mesa3.setEnabled(false);
+        mesa4.setEnabled(false);
+        mesa5.setEnabled(false);
+
+
         botonAtras.setOnClickListener(v -> {
             Intent intent = new Intent(SeleccionMesa.this, MainActivity.class);
             startActivity(intent);
         });
 
         mesa1.setOnClickListener(v -> {
-            mesa1.setImageResource(R.drawable.mesa1seleccionada);
-            mesa2.setImageResource(R.drawable.mesa2);
-            mesa3.setImageResource(R.drawable.mesa3);
-            mesa4.setImageResource(R.drawable.mesa4);
-            mesa5.setImageResource(R.drawable.mesa5);
+            Mesas mesaUno = listaMesas.get(0);
+            if (!mesaUno.ocupadaMesa){
+                mesa1.setImageResource(R.drawable.mesa1seleccionada);
+                mesa2.setImageResource(R.drawable.mesa2);
+                mesa3.setImageResource(R.drawable.mesa3);
+                mesa4.setImageResource(R.drawable.mesa4);
+                mesa5.setImageResource(R.drawable.mesa5);
+                mesaSeleccionada = mesaUno;
+            }
+            else{
+                System.out.println("Mesa ocupada!");
+                // Añadir mensaje alerta
+            }
         });
 
         mesa2.setOnClickListener(v -> {
-            mesa2.setImageResource(R.drawable.mesa2seleccionada);
-            mesa1.setImageResource(R.drawable.mesa1);
-            mesa3.setImageResource(R.drawable.mesa3);
-            mesa4.setImageResource(R.drawable.mesa4);
-            mesa5.setImageResource(R.drawable.mesa5);
+            Mesas mesaDos = listaMesas.get(1);
+            if(!mesaDos.ocupadaMesa){
+                mesa2.setImageResource(R.drawable.mesa2seleccionada);
+                mesa1.setImageResource(R.drawable.mesa1);
+                mesa3.setImageResource(R.drawable.mesa3);
+                mesa4.setImageResource(R.drawable.mesa4);
+                mesa5.setImageResource(R.drawable.mesa5);
+                mesaSeleccionada = mesaDos;
+            }
+            else{
+                System.out.println("Mesa ocupada!");
+                // Añadir mensaje alerta
+            }
         });
 
         mesa3.setOnClickListener(v -> {
-            mesa3.setImageResource(R.drawable.mesa3seleccionada);
-            mesa1.setImageResource(R.drawable.mesa1);
-            mesa2.setImageResource(R.drawable.mesa2);
-            mesa4.setImageResource(R.drawable.mesa4);
-            mesa5.setImageResource(R.drawable.mesa5);
+            Mesas mesaTres = listaMesas.get(2);
+            if (!mesaTres.ocupadaMesa) {
+                mesa3.setImageResource(R.drawable.mesa3seleccionada);
+                mesa1.setImageResource(R.drawable.mesa1);
+                mesa2.setImageResource(R.drawable.mesa2);
+                mesa4.setImageResource(R.drawable.mesa4);
+                mesa5.setImageResource(R.drawable.mesa5);
+                mesaSeleccionada = mesaTres;
+            }
+            else {
+                System.out.println("Mesa ocupada!");
+                // Añadir mensaje alerta
+            }
         });
 
         mesa4.setOnClickListener(v -> {
-            mesa4.setImageResource(R.drawable.mesa4seleccionada);
-            mesa1.setImageResource(R.drawable.mesa1);
-            mesa2.setImageResource(R.drawable.mesa2);
-            mesa3.setImageResource(R.drawable.mesa3);
-            mesa5.setImageResource(R.drawable.mesa5);
+            Mesas mesaCuatro = listaMesas.get(3);
+            if (!mesaCuatro.ocupadaMesa) {
+                mesa4.setImageResource(R.drawable.mesa4seleccionada);
+                mesa1.setImageResource(R.drawable.mesa1);
+                mesa2.setImageResource(R.drawable.mesa2);
+                mesa3.setImageResource(R.drawable.mesa3);
+                mesa5.setImageResource(R.drawable.mesa5);
+                mesaSeleccionada = mesaCuatro;
+            }
+            else {
+                System.out.println("Mesa ocupada!");
+                // Añadir mensaje alerta
+            }
         });
 
         mesa5.setOnClickListener(v -> {
-            mesa5.setImageResource(R.drawable.mesa5seleccionada);
-            mesa1.setImageResource(R.drawable.mesa1);
-            mesa2.setImageResource(R.drawable.mesa2);
-            mesa3.setImageResource(R.drawable.mesa3);
-            mesa4.setImageResource(R.drawable.mesa4);
+            Mesas mesaCinco = listaMesas.get(4);
+            if (!mesaCinco.ocupadaMesa) {
+                mesa5.setImageResource(R.drawable.mesa5seleccionada);
+                mesa1.setImageResource(R.drawable.mesa1);
+                mesa2.setImageResource(R.drawable.mesa2);
+                mesa3.setImageResource(R.drawable.mesa3);
+                mesa4.setImageResource(R.drawable.mesa4);
+                mesaSeleccionada = mesaCinco;
+            }
+            else {
+                System.out.println("Mesa ocupada!");
+                // Añadir mensaje alerta
+            }
         });
     }
 
     public void botonSiguiente(View view) {
         Intent intent = new Intent(this, Carta.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResponse(Call<List<Mesas>> call, Response<List<Mesas>> response) {
+        if (response.isSuccessful()) {
+            listaMesas = response.body();
+            if (listaMesas != null && !listaMesas.isEmpty()) {
+                Log.d("onResponse mesas", "Tamaño de la lista de mesas -> " + listaMesas.size());
+
+                mesa1.setEnabled(true);
+                mesa2.setEnabled(true);
+                mesa3.setEnabled(true);
+                mesa4.setEnabled(true);
+                mesa5.setEnabled(true);
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(Call<List<Mesas>> call, Throwable t) {
+        Log.e("onFailure mesas", "Error al obtener mesas", t);
     }
 }
