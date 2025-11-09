@@ -34,8 +34,8 @@ public class ContenedorPlatosAdaptador extends RecyclerView.Adapter<ContenedorPl
         Platos plato = listaPlatos.get(position);
 
         holder.nombrePlato.setText(plato.nombrePlato);
-        holder.precioPlato.setText((Integer) plato.precioPlato);
-        holder.unidadesPlato.setText(plato.unidadesPlato);
+        holder.precioPlato.setText(plato.precioPlato + "€");
+        holder.unidadesPlato.setText(plato.unidadesPlato + "Uds.");
         switch (plato.nombrePlato) {
             case "Nigiri de Gambas":
                 holder.imagenPlato.setImageResource((R.drawable.sushi_nigiri_gamba));

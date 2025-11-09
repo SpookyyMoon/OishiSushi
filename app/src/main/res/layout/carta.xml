@@ -272,16 +272,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contenedorPlatos"
-        android:layout_width="328dp"
-        android:layout_height="512dp"
+        android:layout_width="319dp"
+        android:layout_height="476dp"
         android:layout_marginStart="33dp"
         android:layout_marginTop="321dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
