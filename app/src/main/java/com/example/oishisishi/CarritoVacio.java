@@ -21,7 +21,7 @@ public class CarritoVacio extends AppCompatActivity {
         botonAtras = findViewById(R.id.atras);
 
         botonAtras.setOnClickListener(v -> {
-            Intent intent = new Intent(CarritoVacio.this, SeleccionMesa.class);
+            Intent intent = new Intent(CarritoVacio.this, Carta.class);
             startActivity(intent);
         });
     }

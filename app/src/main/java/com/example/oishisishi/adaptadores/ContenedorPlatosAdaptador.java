@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oishisishi.Carta;
 import com.example.oishisishi.R;
 import com.example.oishisishi.entidades.Platos;
 
@@ -58,6 +59,9 @@ public class ContenedorPlatosAdaptador extends RecyclerView.Adapter<ContenedorPl
             default:
                 break;
         }
+        holder.itemView.setOnClickListener(v -> {
+            ((Carta)v.getContext()).mostrarPopup(plato);
+        });
     }
 
     @Override
@@ -76,10 +80,6 @@ public class ContenedorPlatosAdaptador extends RecyclerView.Adapter<ContenedorPl
             precioPlato = itemView.findViewById(R.id.precioPlato);
             unidadesPlato = itemView.findViewById(R.id.unidadesPlato);
         }
-    }
-
-    public interface OnPlatoClickListener {
-        void onPlatoClick(Platos plato);
     }
 
 }
