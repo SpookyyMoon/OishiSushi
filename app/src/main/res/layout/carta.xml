@@ -271,6 +271,7 @@
         app:layout_constraintTop_toTopOf="@+id/botonCategoriaRamen" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contenedorPlatos"
         android:layout_width="328dp"
         android:layout_height="512dp"
         android:layout_marginStart="33dp"

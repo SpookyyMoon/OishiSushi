@@ -2,6 +2,7 @@ package com.example.oishisishi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,7 +53,6 @@ public class SeleccionMesa extends AppCompatActivity implements Callback<List<Me
         mesa3.setEnabled(false);
         mesa4.setEnabled(false);
         mesa5.setEnabled(false);
-
 
         botonAtras.setOnClickListener(v -> {
             Intent intent = new Intent(SeleccionMesa.this, MainActivity.class);
@@ -141,8 +141,32 @@ public class SeleccionMesa extends AppCompatActivity implements Callback<List<Me
     }
 
     public void botonSiguiente(View view) {
-        Intent intent = new Intent(this, Carta.class);
-        startActivity(intent);
+        if (mesaSeleccionada == null){
+            // Mensaje alerta
+        }
+        else{
+            mesaSeleccionada.ocupadaMesa = true;
+
+            Call<Mesas> call = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
+            call.enqueue(new Callback<Mesas>() {
+                @Override
+                public void onResponse(Call<Mesas> call, Response<Mesas> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("onResponse mesas", "Mesa seleccionada -> " + mesaSeleccionada.numeroMesa);
+
+                        Intent intent = new Intent(SeleccionMesa.this, Carta.class);
+                        intent.putExtra("mesaSeleccionada", mesaSeleccionada);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Mesas> call, Throwable t) {
+                    Log.e("onFailure mesas", "Error al ocupar la mesa", t);
+                }
+            });
+
+        }
     }
 
     @Override

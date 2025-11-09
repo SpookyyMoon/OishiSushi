@@ -7,9 +7,11 @@ import com.example.oishisishi.entidades.Platos;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @GET("platos")
@@ -20,5 +22,8 @@ public interface ApiService {
 
     @GET("mesas")
     Call<List<Mesas>> getMesas();
+
+    @PUT("mesas/{numeroMesa}")
+    Call<Mesas> updateMesas(@Path("numeroMesa") int numeroMesa, @Body Mesas mesa);
 }
 
