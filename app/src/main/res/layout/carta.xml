@@ -285,5 +285,192 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.055" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/oscurecerFondo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#BB141414"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="373dp"
+            android:layout_height="223dp"
+            android:background="@drawable/popup_plato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/botonAddPlatoSeleccion"
+                android:layout_width="158dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="159dp"
+                android:layout_marginEnd="107dp"
+                android:layout_marginBottom="13dp"
+                android:backgroundTint="#FD8663"
+                android:fontFamily="@font/poppins"
+                android:onClick="botonSiguiente"
+                android:shadowColor="#0B0A0A"
+                android:text="Añadir"
+                android:textSize="23sp"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="#EF6035"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:id="@+id/nombrePlatoSelector3"
+                android:layout_width="179dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="142dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="52dp"
+                android:layout_marginBottom="164dp"
+                android:fontFamily="@font/poppins"
+                android:text="Nigiri de Gambas"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/botonCerrar"
+                android:layout_width="30dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="336dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="185dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/boton_cerrar" />
+
+            <ImageView
+                android:id="@+id/imagenPlatoSelector"
+                android:layout_width="100dp"
+                android:layout_height="88dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="243dp"
+                android:layout_marginBottom="119dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sushi_nigiri_gamba" />
+
+            <TextView
+                android:id="@+id/textoCantidadPlato"
+                android:layout_width="99dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="206dp"
+                android:layout_marginBottom="81dp"
+                android:fontFamily="@font/poppins"
+                android:text="Cantidad:"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cantidadPlatoSelector"
+                android:layout_width="26dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="222dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="125dp"
+                android:layout_marginBottom="82dp"
+                android:fontFamily="@font/poppins"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/precioPlatoSelector"
+                android:layout_width="50dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="233dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="90dp"
+                android:layout_marginBottom="139dp"
+                android:fontFamily="@font/poppins"
+                android:text="10€"
+                android:textAlignment="center"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/unidadesPlatoSelector"
+                android:layout_width="55dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="178dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="140dp"
+                android:layout_marginBottom="139dp"
+                android:fontFamily="@font/poppins"
+                android:text="4 Uds."
+                android:textAlignment="center"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/botonMenosPlatoSelector"
+                android:layout_width="19dp"
+                android:layout_height="7dp"
+                android:layout_marginStart="186dp"
+                android:layout_marginTop="127dp"
+                android:layout_marginEnd="168dp"
+                android:layout_marginBottom="89dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/boton_menos" />
+
+            <ImageView
+                android:id="@+id/botonMasPlatoSeleccion"
+                android:layout_width="17dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="266dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="90dp"
+                android:layout_marginBottom="84dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/boton_mas" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

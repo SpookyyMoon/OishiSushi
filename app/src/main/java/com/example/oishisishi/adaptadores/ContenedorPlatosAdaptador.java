@@ -78,4 +78,8 @@ public class ContenedorPlatosAdaptador extends RecyclerView.Adapter<ContenedorPl
         }
     }
 
+    public interface OnPlatoClickListener {
+        void onPlatoClick(Platos plato);
+    }
+
 }
