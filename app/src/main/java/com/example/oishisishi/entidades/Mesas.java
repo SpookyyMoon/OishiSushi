@@ -7,4 +7,5 @@ public class Mesas implements Serializable {
     public int numeroMesa;
     public boolean ocupadaMesa;
     public List<String> comandasMesa;
+    public List<String> carritoMesa;
 }

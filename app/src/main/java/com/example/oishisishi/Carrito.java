@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oishisishi.entidades.Mesas;
 
-public class CarritoVacio extends AppCompatActivity {
+public class Carrito extends AppCompatActivity {
     ImageView botonAtras;
     Mesas mesaSeleccionada;
 
@@ -29,7 +29,7 @@ public class CarritoVacio extends AppCompatActivity {
         botonAtras = findViewById(R.id.atras);
 
         botonAtras.setOnClickListener(v -> {
-            Intent intent = new Intent(CarritoVacio.this, Carta.class);
+            Intent intent = new Intent(Carrito.this, Carta.class);
             intent.putExtra("mesaSeleccionada", mesaSeleccionada);
             startActivity(intent);
         });

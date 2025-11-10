@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.example.oishisishi.adaptadores.ContenedorPlatosAdaptador;
 import com.example.oishisishi.entidades.Mesas;
 import com.example.oishisishi.entidades.Platos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,10 +32,18 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
     Mesas mesaSeleccionada;
     RecyclerView contenedorPlatos;
     ContenedorPlatosAdaptador adaptador;
+    FrameLayout circuloNumeroCarrito;
+    TextView numeroItems;
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (mesaSeleccionada.carritoMesa == null) {
+            mesaSeleccionada.carritoMesa = new ArrayList<>();
+        }
+        else {
+            numeroItems.setText(String.valueOf(mesaSeleccionada.carritoMesa.size()));
+        }
     }
 
     @Override
@@ -42,9 +52,17 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         setContentView(R.layout.carta);
 
         mesaSeleccionada = (Mesas) getIntent().getSerializableExtra("mesaSeleccionada");
+        if (mesaSeleccionada == null) {
+            Log.e("onCreate Carta", "mesaSeleccionada es null!");
+        }
+        if (mesaSeleccionada.carritoMesa == null) {
+            mesaSeleccionada.carritoMesa = new ArrayList<>();
+        }
 
         botonAtras = findViewById(R.id.atras);
         botonCarrito = findViewById(R.id.carrito);
+        circuloNumeroCarrito = findViewById(R.id.circuloNumeroCarrito);
+        numeroItems = findViewById(R.id.numeroItems);
         contenedorPlatos = findViewById(R.id.contenedorPlatos);
         contenedorPlatos.setHasFixedSize(true);
         contenedorPlatos.setLayoutManager((new LinearLayoutManager(this)));
@@ -58,8 +76,15 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         });
 
         botonCarrito.setOnClickListener(v -> {
-            Intent intent = new Intent(Carta.this, CarritoVacio.class);
-            startActivity(intent);
+            if (mesaSeleccionada.carritoMesa == null || mesaSeleccionada.carritoMesa == null) {
+                Intent intent = new Intent(Carta.this, CarritoVacio.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(Carta.this, Carrito.class);
+                intent.putExtra("mesaSeleccionada", mesaSeleccionada);
+                startActivity(intent);
+            }
         });
     }
 
@@ -89,14 +114,14 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
 
         ConstraintLayout oscurecerFondo = findViewById(R.id.oscurecerFondo);
         ImageView imagenPlatoSelector = findViewById(R.id.imagenPlatoSelector);
-        TextView nombrePlatoSelector = findViewById(R.id.nombrePlatoSelector3);
+        TextView nombrePlatoSelector = findViewById(R.id.nombrePlatoSelector);
         TextView unidadesPlatoSelector = findViewById(R.id.unidadesPlatoSelector);
         TextView precioPlatoSelector = findViewById(R.id.precioPlatoSelector);
         TextView cantidadPlatoSelector = findViewById(R.id.cantidadPlatoSelector);
         ImageView botonMasPlatoSelector = findViewById(R.id.botonMasPlatoSeleccion);
         ImageView botonMenosPlatoSelector = findViewById(R.id.botonMenosPlatoSelector);
         ImageView botonCerrarPlatoSelector = findViewById(R.id.botonCerrar);
-        Button botonAñadirPlatoSelector = findViewById(R.id.botonAddPlatoSeleccion);
+        Button botonAddPlatoSelector = findViewById(R.id.botonAddPlatoSeleccion);
 
         oscurecerFondo.setVisibility(View.VISIBLE);
         nombrePlatoSelector.setText(plato.nombrePlato);
@@ -144,9 +169,30 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
             oscurecerFondo.setVisibility(View.INVISIBLE);
         });
 
-        botonAñadirPlatoSelector.setOnClickListener(v -> {
+        botonAddPlatoSelector.setOnClickListener(v -> {
             oscurecerFondo.setVisibility(View.INVISIBLE);
-            // Añadir plato a cesta + icono cesta con platos
+            for (int i = 0; i < cantidad[0]; i++) {
+                mesaSeleccionada.carritoMesa.add(plato.nombrePlato);
+            }
+
+            circuloNumeroCarrito.setVisibility(View.VISIBLE);
+            numeroItems.setVisibility(View.VISIBLE);
+            numeroItems.setText(String.valueOf(mesaSeleccionada.carritoMesa.size()));
+
+            Call<Mesas> call = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
+            call.enqueue(new Callback<Mesas>() {
+                @Override
+                public void onResponse(Call<Mesas> call, Response<Mesas> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("onResponse mesas", "Plato añadido al carrito -> " + plato.nombrePlato);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Mesas> call, Throwable t) {
+                    Log.e("onFailure mesas", "Error al añadir plato", t);
+                }
+            });
         });
     }
 }

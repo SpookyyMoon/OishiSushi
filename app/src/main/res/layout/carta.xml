@@ -113,35 +113,37 @@
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toTopOf="@+id/button" />
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="305dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="218dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="565dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/busqueda" />
-
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="294dp"
         android:layout_height="19dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="243dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="589dp"
         android:background="@android:color/transparent"
         android:paddingStart="-15dp"
         app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-        app:layout_constraintEnd_toEndOf="@+id/imageView12"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
-        app:layout_constraintTop_toTopOf="@+id/imageView12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:queryBackground="@android:color/transparent"
         app:searchIcon="@drawable/iconobuscar" />
+
+    <FrameLayout
+        android:id="@+id/contenedorBusqueda"
+        android:layout_width="306dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="238dp"
+        android:layout_marginBottom="585dp"
+        android:background="@drawable/boton_categoria"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/botonCategoriaRolls"
@@ -285,6 +287,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.055" />
 
+    <FrameLayout
+        android:id="@+id/circuloNumeroCarrito"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="368dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="795dp"
+        android:background="@drawable/numero_items_carrito"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/numeroItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp" />
+    </FrameLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/oscurecerFondo"
         android:layout_width="0dp"
@@ -329,7 +357,7 @@
                 app:strokeWidth="1dp" />
 
             <TextView
-                android:id="@+id/nombrePlatoSelector3"
+                android:id="@+id/nombrePlatoSelector"
                 android:layout_width="179dp"
                 android:layout_height="21dp"
                 android:layout_marginStart="142dp"
@@ -470,6 +498,7 @@
                 app:srcCompat="@drawable/boton_mas" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oishisishi.Carta;
@@ -59,6 +60,7 @@ public class ContenedorPlatosAdaptador extends RecyclerView.Adapter<ContenedorPl
             default:
                 break;
         }
+
         holder.itemView.setOnClickListener(v -> {
             ((Carta)v.getContext()).mostrarPopup(plato);
         });
