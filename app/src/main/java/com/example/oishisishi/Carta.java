@@ -42,6 +42,8 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
             mesaSeleccionada.carritoMesa = new ArrayList<>();
         }
         else {
+            circuloNumeroCarrito.setVisibility(View.VISIBLE);
+            numeroItems.setVisibility(View.VISIBLE);
             numeroItems.setText(String.valueOf(mesaSeleccionada.carritoMesa.size()));
         }
     }
@@ -92,7 +94,7 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         });
 
         botonCarrito.setOnClickListener(v -> {
-            if (mesaSeleccionada.carritoMesa == null || mesaSeleccionada.carritoMesa == null) {
+            if (mesaSeleccionada.carritoMesa == null || mesaSeleccionada.carritoMesa.isEmpty()) {
                 Intent intent = new Intent(Carta.this, CarritoVacio.class);
                 startActivity(intent);
             }

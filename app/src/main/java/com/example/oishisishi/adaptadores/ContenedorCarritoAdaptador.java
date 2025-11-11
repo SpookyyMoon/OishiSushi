@@ -17,10 +17,12 @@ import java.util.List;
 public class ContenedorCarritoAdaptador extends RecyclerView.Adapter<ContenedorCarritoAdaptador.PlatoViewHolder> {
 
     List<Platos> listaPlatos;
+    OnPlatoEliminarListener listener;
 
 
-    public ContenedorCarritoAdaptador(List<Platos> listaPlatos){
+    public ContenedorCarritoAdaptador(List<Platos> listaPlatos, OnPlatoEliminarListener listener){
         this.listaPlatos = listaPlatos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -60,6 +62,10 @@ public class ContenedorCarritoAdaptador extends RecyclerView.Adapter<ContenedorC
             default:
                 break;
         }
+
+        holder.botonEliminarCarrito.setOnClickListener(v -> {
+            listener.onPlatoEliminar(plato);
+        });
     }
 
     @Override
@@ -68,7 +74,7 @@ public class ContenedorCarritoAdaptador extends RecyclerView.Adapter<ContenedorC
     }
 
     public static class PlatoViewHolder extends RecyclerView.ViewHolder {
-        ImageView imagenPlato;
+        ImageView imagenPlato, botonEliminarCarrito;
         TextView nombrePlato, precioPlato, unidadesPlato;
 
         public PlatoViewHolder(@NonNull View itemView) {
@@ -77,7 +83,12 @@ public class ContenedorCarritoAdaptador extends RecyclerView.Adapter<ContenedorC
             nombrePlato = itemView.findViewById(R.id.nombrePlato);
             precioPlato = itemView.findViewById(R.id.precioPlato);
             unidadesPlato = itemView.findViewById(R.id.unidadesPlato);
+            botonEliminarCarrito = itemView.findViewById(R.id.botonEliminarCarrito);
         }
+    }
+
+    public interface OnPlatoEliminarListener {
+        void onPlatoEliminar(Platos plato);
     }
 
 }

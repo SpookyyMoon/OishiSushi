@@ -3,101 +3,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="78dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginHorizontal="16dp"
         android:background="@drawable/boton_categoria"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/imagenPlato"
-            android:layout_width="83dp"
-            android:layout_height="67dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/nombrePlato"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/sushi_nigiri_gamba" />
 
         <TextView
             android:id="@+id/nombrePlato"
-            android:layout_width="212dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="160dp"
+            android:layout_width="181dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="122dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginBottom="41dp"
+            android:layout_marginEnd="58dp"
+            android:layout_marginBottom="39dp"
             android:fontFamily="@font/poppins"
             android:text="Nigiri de Gambas"
             android:textAlignment="center"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.564"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="111dp"
-            android:layout_height="14dp"
-            android:layout_marginStart="175dp"
-            android:layout_marginTop="47dp"
-            android:layout_marginEnd="75dp"
-            android:layout_marginBottom="17dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/precioPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="10.0€"
+            android:textColor="#7A7979"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/unidadesPlato"
+            app:layout_constraintTop_toTopOf="@id/unidadesPlato" />
 
-            <TextView
-                android:id="@+id/unidadesPlato"
-                android:layout_width="18dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="4 Uds."
-                android:textAlignment="center"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/precioPlato"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10 €"
-                android:textAlignment="viewStart"
-                android:textSize="12sp"
-                tools:layout_editor_absoluteX="235dp"
-                tools:layout_editor_absoluteY="47dp" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/unidadesPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="40dp"
+            android:text="4 Uds."
+            android:textColor="#7A7979"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/nombrePlato"
+            app:layout_constraintTop_toBottomOf="@id/nombrePlato"/>
 
         <ImageView
             android:id="@+id/botonEliminarCarrito"
-            android:layout_width="26dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="334dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="52dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/boton_cerrar" />
 

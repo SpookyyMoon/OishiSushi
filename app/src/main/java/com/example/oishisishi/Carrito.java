@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oishisishi.adaptadores.ApiAdapter;
 import com.example.oishisishi.adaptadores.ContenedorCarritoAdaptador;
-import com.example.oishisishi.adaptadores.ContenedorPlatosAdaptador;
 import com.example.oishisishi.entidades.Mesas;
 import com.example.oishisishi.entidades.Platos;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +27,7 @@ public class Carrito extends AppCompatActivity {
     Mesas mesaSeleccionada;
     ContenedorCarritoAdaptador adaptador;
     RecyclerView contenedorPlatosCarrito;
-    ImageView botonEliminarCarrito;
+    TextView subTotalCarrito, ivaCarrito, totalCarrito;
 
     @Override
     protected void onResume() {
@@ -49,11 +49,14 @@ public class Carrito extends AppCompatActivity {
         setContentView(R.layout.carrito);
 
         botonAtras = findViewById(R.id.atras);
-        botonEliminarCarrito.findViewById(R.id.botonEliminarCarrito);
         contenedorPlatosCarrito = findViewById(R.id.contenedorPlatosCarrito);
+        subTotalCarrito = findViewById(R.id.subTotalCarrito);
+        ivaCarrito = findViewById(R.id.ivaCarrito);
+        totalCarrito = findViewById(R.id.totalCarrito);
         contenedorPlatosCarrito.setLayoutManager((new LinearLayoutManager(this)));
         contenedorPlatosCarrito.setHasFixedSize(true);
 
+        precioRellenarDatos();
 
         botonAtras.setOnClickListener(v -> {
             Intent intent = new Intent(Carrito.this, Carta.class);
@@ -61,12 +64,22 @@ public class Carrito extends AppCompatActivity {
             startActivity(intent);
         });
 
-        adaptador = new ContenedorCarritoAdaptador(mesaSeleccionada.carritoMesa);
+        adaptador = new ContenedorCarritoAdaptador(
+                mesaSeleccionada.carritoMesa,
+                new ContenedorCarritoAdaptador.OnPlatoEliminarListener() {
+                    @Override
+                    public void onPlatoEliminar(Platos plato) {
+                        eliminarPlato(plato);
+                    }
+                }
+        );
         contenedorPlatosCarrito.setAdapter(adaptador);
     }
 
     public void eliminarPlato(Platos plato) {
         mesaSeleccionada.carritoMesa.remove(plato);
+        adaptador.notifyItemRemoved(mesaSeleccionada.carritoMesa.indexOf(plato));
+        precioRellenarDatos();
         Call<Mesas> call = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
         call.enqueue(new Callback<Mesas>() {
             @Override
@@ -81,5 +94,22 @@ public class Carrito extends AppCompatActivity {
                 Log.e("onFailure carrito", "Error al eliminar plato", t);
             }
         });
+    }
+
+    public void precioRellenarDatos() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        double subTotal = 0;
+        double IVA = 0;
+        double total = 0;
+        for(int i = 0; i < mesaSeleccionada.carritoMesa.size(); i++) {
+            subTotal += mesaSeleccionada.carritoMesa.get(i).precioPlato;
+        }
+        IVA = Double.parseDouble(df.format((subTotal * (0.10))));
+        total = Double.parseDouble(df.format(subTotal + IVA));
+        subTotal = Double.parseDouble(df.format(subTotal));
+
+        subTotalCarrito.setText(subTotal + "€");
+        ivaCarrito.setText(IVA + "€");
+        totalCarrito.setText(total + "€");
     }
 }

@@ -32,20 +32,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <ImageView
-        android:id="@+id/carrito"
-        android:layout_width="38dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="339dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="778dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/carrito" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="97dp"

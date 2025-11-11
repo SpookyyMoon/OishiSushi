@@ -20,7 +20,7 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="0"
-        android:text="Empezar"
+        android:text="Pedir"
         android:textSize="24sp"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,7 @@
         app:strokeWidth="1dp" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/totalCarritoTexto"
         android:layout_width="59dp"
         android:layout_height="25dp"
         android:layout_marginStart="38dp"
@@ -50,7 +50,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/totalCarrito"
+        android:layout_width="59dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="669dp"
+        android:layout_marginEnd="229dp"
+        android:layout_marginBottom="157dp"
+        android:fontFamily="@font/poppins"
+        android:text="11€"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subTotalCarritoTexto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -67,7 +85,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/subTotalCarrito"
+        android:layout_width="34dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="620dp"
+        android:layout_marginEnd="266dp"
+        android:layout_marginBottom="214dp"
+        android:fontFamily="@font/poppins"
+        android:text="10€"
+        android:textAlignment="center"
+        android:textColor="#636363"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ivaCarrito"
+        android:layout_width="34dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="642dp"
+        android:layout_marginEnd="266dp"
+        android:layout_marginBottom="192dp"
+        android:fontFamily="@font/poppins"
+        android:text="1€"
+        android:textAlignment="center"
+        android:textColor="#636363"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ivaCarritoTexto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -106,20 +160,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
-
-    <ImageView
-        android:id="@+id/carrito"
-        android:layout_width="38dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="339dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="778dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/carrito" />
 
     <TextView
         android:id="@+id/textView8"
