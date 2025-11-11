@@ -71,8 +71,24 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         call.enqueue(this);
 
         botonAtras.setOnClickListener(v -> {
-            Intent intent = new Intent(Carta.this, SeleccionMesa.class);
-            startActivity(intent);
+            mesaSeleccionada.ocupadaMesa = false;
+            Call<Mesas> callAtras = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
+            callAtras.enqueue(new Callback<Mesas>() {
+                @Override
+                public void onResponse(Call<Mesas> call, Response<Mesas> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("onResponse mesas", "Mesa liberada -> " + mesaSeleccionada.numeroMesa);
+
+                        Intent intent = new Intent(Carta.this, SeleccionMesa.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Mesas> call, Throwable t) {
+                    Log.e("onFailure mesas", "Error al liberar la mesa", t);
+                }
+            });
         });
 
         botonCarrito.setOnClickListener(v -> {
@@ -172,7 +188,7 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         botonAddPlatoSelector.setOnClickListener(v -> {
             oscurecerFondo.setVisibility(View.INVISIBLE);
             for (int i = 0; i < cantidad[0]; i++) {
-                mesaSeleccionada.carritoMesa.add(plato.nombrePlato);
+                mesaSeleccionada.carritoMesa.add(plato);
             }
 
             circuloNumeroCarrito.setVisibility(View.VISIBLE);
