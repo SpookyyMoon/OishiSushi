@@ -3,6 +3,7 @@ package com.example.oishisishi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oishisishi.adaptadores.ApiAdapter;
 import com.example.oishisishi.adaptadores.ContenedorCarritoAdaptador;
+import com.example.oishisishi.entidades.Comandas;
 import com.example.oishisishi.entidades.Mesas;
 import com.example.oishisishi.entidades.Platos;
 
@@ -74,6 +76,43 @@ public class Carrito extends AppCompatActivity {
                 }
         );
         contenedorPlatosCarrito.setAdapter(adaptador);
+    }
+
+    public void botonPedirCarrito(View view) {
+        ArrayList<Platos> copiaCarrito = new ArrayList<>(mesaSeleccionada.carritoMesa);
+        Comandas nuevaComanda = new Comandas(mesaSeleccionada.numeroMesa, copiaCarrito, false, false);
+        mesaSeleccionada.carritoMesa.clear();
+        Call<Comandas> call = ApiAdapter.getApiService().createComanda(nuevaComanda);
+        call.enqueue(new Callback<Comandas>() {
+            @Override
+            public void onResponse(Call<Comandas> call, Response<Comandas> response) {
+                if (response.isSuccessful()) {
+                    Log.d("onResponse carrito", "Comanda creada para la mesa -> " + nuevaComanda.numeroMesa);
+                    Intent intent = new Intent(Carrito.this, Carta.class);
+                    intent.putExtra("mesaSeleccionada", mesaSeleccionada);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Comandas> call, Throwable t) {
+                Log.e("onFailure carrito", "Error al crear comanda", t);
+            }
+        });
+        Call<Mesas> callMesas = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
+        callMesas.enqueue(new Callback<Mesas>() {
+            @Override
+            public void onResponse(Call<Mesas> callMesas, Response<Mesas> response) {
+                if (response.isSuccessful()) {
+                    Log.d("onResponse carrito", "Carrito borrado -> " + mesaSeleccionada.numeroMesa);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Mesas> callMesas, Throwable t) {
+                Log.e("onFailure carrito", "Error al borrar carrito", t);
+            }
+        });
     }
 
     public void eliminarPlato(Platos plato) {

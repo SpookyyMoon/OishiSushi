@@ -41,6 +41,10 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         if (mesaSeleccionada.carritoMesa == null) {
             mesaSeleccionada.carritoMesa = new ArrayList<>();
         }
+        else if(mesaSeleccionada.carritoMesa.size() == 0) {
+            circuloNumeroCarrito.setVisibility(View.INVISIBLE);
+            numeroItems.setVisibility(View.INVISIBLE);
+        }
         else {
             circuloNumeroCarrito.setVisibility(View.VISIBLE);
             numeroItems.setVisibility(View.VISIBLE);

@@ -6,6 +6,6 @@ import java.util.List;
 public class Mesas implements Serializable {
     public int numeroMesa;
     public boolean ocupadaMesa;
-    public List<String> comandasMesa;
+    public List<Comandas> comandasMesa;
     public List<Platos> carritoMesa;
 }
