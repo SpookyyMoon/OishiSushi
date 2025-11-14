@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.example.oishisishi.entidades.Platos;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +32,7 @@ public class Carrito extends AppCompatActivity {
     ContenedorCarritoAdaptador adaptador;
     RecyclerView contenedorPlatosCarrito;
     TextView subTotalCarrito, ivaCarrito, totalCarrito;
+    Button botonVerCuentaCarrito;
 
     @Override
     protected void onResume() {
@@ -50,14 +53,16 @@ public class Carrito extends AppCompatActivity {
         }
         setContentView(R.layout.carrito);
 
+        botonVerCuentaCarrito = findViewById(R.id.botonVerCuentaCarrito);
         botonAtras = findViewById(R.id.atras);
-        contenedorPlatosCarrito = findViewById(R.id.contenedorPlatosCarrito);
-        subTotalCarrito = findViewById(R.id.subTotalCarrito);
-        ivaCarrito = findViewById(R.id.ivaCarrito);
-        totalCarrito = findViewById(R.id.totalCarrito);
+        contenedorPlatosCarrito = findViewById(R.id.contenedorPlatosCuenta);
+        subTotalCarrito = findViewById(R.id.subTotalCuenta);
+        ivaCarrito = findViewById(R.id.ivaCuenta);
+        totalCarrito = findViewById(R.id.totalCuenta);
         contenedorPlatosCarrito.setLayoutManager((new LinearLayoutManager(this)));
         contenedorPlatosCarrito.setHasFixedSize(true);
 
+        verificarComandaDeMesa();
         precioRellenarDatos();
 
         botonAtras.setOnClickListener(v -> {
@@ -78,9 +83,15 @@ public class Carrito extends AppCompatActivity {
         contenedorPlatosCarrito.setAdapter(adaptador);
     }
 
+    public void botonVerCuentaCarrito(View view) {
+        Intent intent = new Intent(Carrito.this, Cuenta.class);
+        intent.putExtra("mesaSeleccionada", mesaSeleccionada);
+        startActivity(intent);
+    }
+
     public void botonPedirCarrito(View view) {
         ArrayList<Platos> copiaCarrito = new ArrayList<>(mesaSeleccionada.carritoMesa);
-        Comandas nuevaComanda = new Comandas(mesaSeleccionada.numeroMesa, copiaCarrito, false, false);
+        Comandas nuevaComanda = new Comandas(mesaSeleccionada.numeroMesa, copiaCarrito, false);
         mesaSeleccionada.carritoMesa.clear();
         Call<Comandas> call = ApiAdapter.getApiService().createComanda(nuevaComanda);
         call.enqueue(new Callback<Comandas>() {
@@ -150,5 +161,40 @@ public class Carrito extends AppCompatActivity {
         subTotalCarrito.setText(subTotal + "€");
         ivaCarrito.setText(IVA + "€");
         totalCarrito.setText(total + "€");
+    }
+
+    private void verificarComandaDeMesa() {
+
+        ApiAdapter.getApiService().getComandas().enqueue(new Callback<List<Comandas>>() {
+            @Override
+            public void onResponse(Call<List<Comandas>> call, Response<List<Comandas>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    botonVerCuentaCarrito.setVisibility(View.GONE);
+                    return;
+                }
+
+                List<Comandas> comandas = response.body();
+
+                boolean mesaTieneComandaAtendida = false;
+
+                for (Comandas c : comandas) {
+                    if (c.numeroMesa == mesaSeleccionada.numeroMesa && c.atendidaComanda) {
+                        mesaTieneComandaAtendida = true;
+                        break;
+                    }
+                }
+
+                if (mesaTieneComandaAtendida) {
+                    botonVerCuentaCarrito.setVisibility(View.VISIBLE);
+                } else {
+                    botonVerCuentaCarrito.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comandas>> call, Throwable t) {
+                botonVerCuentaCarrito.setVisibility(View.GONE);
+            }
+        });
     }
 }

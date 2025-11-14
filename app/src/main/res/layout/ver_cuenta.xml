@@ -2,33 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/carrito"
+    android:id="@+id/ver_cuenta"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFF"
-    tools:context=".Carrito">
-
-    <Button
-        android:id="@+id/botonVerCuentaCarrito"
-        android:layout_width="104dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="239dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="631dp"
-        android:backgroundTint="#FD8663"
-        android:fontFamily="@font/poppins"
-        android:onClick="botonVerCuentaCarrito"
-        android:text="Ver cuenta"
-        android:textSize="10sp"
-        android:visibility="invisible"
-        app:cornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#EF6035"
-        app:strokeWidth="1dp" />
+    tools:context=".Cuenta">
 
     <Button
         android:id="@+id/botonPagarCuenta"
@@ -45,7 +23,7 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="0"
-        android:text="Pedir"
+        android:text="Pagar"
         android:textSize="24sp"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -188,14 +166,14 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="97dp"
+        android:layout_width="104dp"
         android:layout_height="26dp"
         android:layout_marginStart="38dp"
         android:layout_marginTop="158dp"
         android:layout_marginEnd="275dp"
         android:layout_marginBottom="634dp"
         android:fontFamily="@font/poppins"
-        android:text="Tu carrito"
+        android:text="Tu cuenta"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

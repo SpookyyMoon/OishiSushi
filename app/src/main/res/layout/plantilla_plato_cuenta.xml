@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/boton_categoria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/numeroItems2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp" />
+
+        <ImageView
+            android:id="@+id/imagenPlato"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sushi_nigiri_gamba" />
+
+        <TextView
+            android:id="@+id/nombrePlato"
+            android:layout_width="181dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="122dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="58dp"
+            android:layout_marginBottom="39dp"
+            android:fontFamily="@font/poppins"
+            android:text="Nigiri de Gambas"
+            android:textAlignment="center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/precioPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="10.0€"
+            android:textColor="#7A7979"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/unidadesPlato"
+            app:layout_constraintTop_toTopOf="@id/unidadesPlato" />
+
+        <TextView
+            android:id="@+id/unidadesPlato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="6dp"
+            android:text="4 Uds."
+            android:textColor="#7A7979"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/nombrePlato"
+            app:layout_constraintTop_toBottomOf="@id/nombrePlato" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

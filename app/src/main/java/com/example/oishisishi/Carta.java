@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oishisishi.adaptadores.ApiAdapter;
 import com.example.oishisishi.adaptadores.ContenedorPlatosAdaptador;
+import com.example.oishisishi.entidades.Comandas;
 import com.example.oishisishi.entidades.Mesas;
 import com.example.oishisishi.entidades.Platos;
 
@@ -34,6 +35,7 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
     ContenedorPlatosAdaptador adaptador;
     FrameLayout circuloNumeroCarrito;
     TextView numeroItems;
+    Button botonVerCuenta;
 
     @Override
     protected void onResume() {
@@ -65,6 +67,7 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
             mesaSeleccionada.carritoMesa = new ArrayList<>();
         }
 
+        botonVerCuenta = findViewById(R.id.botonVerCuenta);
         botonAtras = findViewById(R.id.atras);
         botonCarrito = findViewById(R.id.carrito);
         circuloNumeroCarrito = findViewById(R.id.circuloNumeroCarrito);
@@ -72,6 +75,8 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
         contenedorPlatos = findViewById(R.id.contenedorPlatos);
         contenedorPlatos.setHasFixedSize(true);
         contenedorPlatos.setLayoutManager((new LinearLayoutManager(this)));
+
+        verificarComandaDeMesa();
 
         Call<List<Platos>> call = ApiAdapter.getApiService().getPlatos();
         call.enqueue(this);
@@ -129,6 +134,12 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
     @Override
     public void onFailure(Call<List<Platos>> call, Throwable t) {
         Log.e("onFailure platos", "Error al obtener platos", t);
+    }
+
+    public void botonVerCuenta(View view) {
+        Intent intent = new Intent(Carta.this, Cuenta.class);
+        intent.putExtra("mesaSeleccionada", mesaSeleccionada);
+        startActivity(intent);
     }
 
     public void mostrarPopup(Platos plato) {
@@ -215,6 +226,45 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
                     Log.e("onFailure mesas", "Error al añadir plato", t);
                 }
             });
+        });
+    }
+
+    private void verificarComandaDeMesa() {
+
+        ApiAdapter.getApiService().getComandas().enqueue(new Callback<List<Comandas>>() {
+            @Override
+            public void onResponse(Call<List<Comandas>> call, Response<List<Comandas>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    botonAtras.setVisibility(View.VISIBLE);
+                    botonVerCuenta.setVisibility(View.GONE);
+                    return;
+                }
+
+                List<Comandas> comandas = response.body();
+
+                boolean mesaTieneComandaAtendida = false;
+
+                for (Comandas c : comandas) {
+                    if (c.numeroMesa == mesaSeleccionada.numeroMesa && c.atendidaComanda) {
+                        mesaTieneComandaAtendida = true;
+                        break;
+                    }
+                }
+
+                if (mesaTieneComandaAtendida) {
+                    botonAtras.setVisibility(View.GONE);
+                    botonVerCuenta.setVisibility(View.VISIBLE);
+                } else {
+                    botonAtras.setVisibility(View.VISIBLE);
+                    botonVerCuenta.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comandas>> call, Throwable t) {
+                botonAtras.setVisibility(View.VISIBLE);
+                botonVerCuenta.setVisibility(View.GONE);
+            }
         });
     }
 }

@@ -2,19 +2,14 @@ package com.example.oishisishi;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oishisishi.adaptadores.ApiAdapter;
-import com.example.oishisishi.entidades.Comandas;
 import com.example.oishisishi.entidades.Mesas;
-import com.example.oishisishi.entidades.Platos;
-import com.example.oishisishi.servicios.ApiService;
 
 import java.util.List;
 
