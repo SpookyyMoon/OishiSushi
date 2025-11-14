@@ -40,7 +40,7 @@
         android:layout_marginBottom="81dp"
         android:backgroundTint="#FD8663"
         android:fontFamily="@font/poppins"
-        android:onClick="botonPedirCarrito"
+        android:onClick="alertaConfirmarPedido"
         android:shadowColor="#0B0A0A"
         android:shadowDx="0"
         android:shadowDy="0"

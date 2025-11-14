@@ -1,11 +1,13 @@
 package com.example.oishisishi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.oishisishi.adaptadores.ApiAdapter;
@@ -57,82 +59,125 @@ public class SeleccionMesa extends AppCompatActivity implements Callback<List<Me
         mesa1.setOnClickListener(v -> {
             Mesas mesaUno = listaMesas.get(0);
             if (!mesaUno.ocupadaMesa){
+                disponibilidadMesas();
                 mesa1.setImageResource(R.drawable.mesa1seleccionada);
-                mesa2.setImageResource(R.drawable.mesa2);
-                mesa3.setImageResource(R.drawable.mesa3);
-                mesa4.setImageResource(R.drawable.mesa4);
-                mesa5.setImageResource(R.drawable.mesa5);
                 mesaSeleccionada = mesaUno;
             }
             else{
-                System.out.println("Mesa ocupada!");
-                // Añadir mensaje alerta
+                alertaMesaOcupada();
             }
         });
 
         mesa2.setOnClickListener(v -> {
             Mesas mesaDos = listaMesas.get(1);
             if(!mesaDos.ocupadaMesa){
+                disponibilidadMesas();
                 mesa2.setImageResource(R.drawable.mesa2seleccionada);
-                mesa1.setImageResource(R.drawable.mesa1);
-                mesa3.setImageResource(R.drawable.mesa3);
-                mesa4.setImageResource(R.drawable.mesa4);
-                mesa5.setImageResource(R.drawable.mesa5);
                 mesaSeleccionada = mesaDos;
             }
             else{
-                System.out.println("Mesa ocupada!");
-                // Añadir mensaje alerta
+                alertaMesaOcupada();
             }
         });
 
         mesa3.setOnClickListener(v -> {
             Mesas mesaTres = listaMesas.get(2);
             if (!mesaTres.ocupadaMesa) {
+                disponibilidadMesas();
                 mesa3.setImageResource(R.drawable.mesa3seleccionada);
-                mesa1.setImageResource(R.drawable.mesa1);
-                mesa2.setImageResource(R.drawable.mesa2);
-                mesa4.setImageResource(R.drawable.mesa4);
-                mesa5.setImageResource(R.drawable.mesa5);
                 mesaSeleccionada = mesaTres;
             }
             else {
-                System.out.println("Mesa ocupada!");
-                // Añadir mensaje alerta
+                alertaMesaOcupada();
             }
         });
 
         mesa4.setOnClickListener(v -> {
             Mesas mesaCuatro = listaMesas.get(3);
             if (!mesaCuatro.ocupadaMesa) {
+                disponibilidadMesas();
                 mesa4.setImageResource(R.drawable.mesa4seleccionada);
-                mesa1.setImageResource(R.drawable.mesa1);
-                mesa2.setImageResource(R.drawable.mesa2);
-                mesa3.setImageResource(R.drawable.mesa3);
-                mesa5.setImageResource(R.drawable.mesa5);
                 mesaSeleccionada = mesaCuatro;
             }
             else {
-                System.out.println("Mesa ocupada!");
-                // Añadir mensaje alerta
+                alertaMesaOcupada();
             }
         });
 
         mesa5.setOnClickListener(v -> {
             Mesas mesaCinco = listaMesas.get(4);
             if (!mesaCinco.ocupadaMesa) {
+                disponibilidadMesas();
                 mesa5.setImageResource(R.drawable.mesa5seleccionada);
-                mesa1.setImageResource(R.drawable.mesa1);
-                mesa2.setImageResource(R.drawable.mesa2);
-                mesa3.setImageResource(R.drawable.mesa3);
-                mesa4.setImageResource(R.drawable.mesa4);
                 mesaSeleccionada = mesaCinco;
             }
             else {
-                System.out.println("Mesa ocupada!");
-                // Añadir mensaje alerta
+                alertaMesaOcupada();
             }
         });
+    }
+
+    public void alertaMesaOcupada() {
+        AlertDialog alertDialog = new AlertDialog.Builder(SeleccionMesa.this).create();
+        alertDialog.setTitle("¡Mesa ocupada!");
+        alertDialog.setIcon(R.drawable.logo_le_upscale_balanced_x4_1);
+        alertDialog.setMessage("Esta mesa está ocupada, escoge otra");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    public void disponibilidadMesas() {
+        for (Mesas mesa : listaMesas) {
+            switch (mesa.numeroMesa) {
+                case 1:
+                    if(mesa.ocupadaMesa) {
+                        mesa1.setImageResource(R.drawable.mesa1ocupada);
+                    }
+                    else{
+                        mesa1.setImageResource(R.drawable.mesa1);
+                    }
+                    break;
+                case 2:
+                    if(mesa.ocupadaMesa) {
+                        mesa2.setImageResource(R.drawable.mesa2ocupada);
+                    }
+                    else{
+                        mesa2.setImageResource(R.drawable.mesa2);
+                    }
+                    break;
+                case 3:
+                    if(mesa.ocupadaMesa) {
+                        mesa3.setImageResource(R.drawable.mesa3ocupada);
+                    }
+                    else{
+                        mesa3.setImageResource(R.drawable.mesa3);
+                    }
+                    break;
+                case 4:
+                    if(mesa.ocupadaMesa) {
+                        mesa4.setImageResource(R.drawable.mesa4ocupada);
+                    }
+                    else{
+                        mesa4.setImageResource(R.drawable.mesa4);
+                    }
+                    break;
+                case 5:
+                    if(mesa.ocupadaMesa) {
+                        mesa5.setImageResource(R.drawable.mesa5ocupada);
+                    }
+                    else{
+                        mesa5.setImageResource(R.drawable.mesa5);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void botonSiguiente(View view) {
@@ -157,7 +202,7 @@ public class SeleccionMesa extends AppCompatActivity implements Callback<List<Me
 
                 @Override
                 public void onFailure(Call<Mesas> call, Throwable t) {
-                    Log.e("onFailure mesas", "Error al ocupar la mesa", t);
+                    Log.e("onFailure mesas", "Error al ocupar la mesa.", t);
                 }
             });
 
@@ -178,6 +223,7 @@ public class SeleccionMesa extends AppCompatActivity implements Callback<List<Me
                 mesa5.setEnabled(true);
             }
         }
+        disponibilidadMesas();
     }
 
     @Override

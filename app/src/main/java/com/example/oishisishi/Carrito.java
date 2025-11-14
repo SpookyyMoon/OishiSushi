@@ -1,5 +1,6 @@
 package com.example.oishisishi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,7 +91,28 @@ public class Carrito extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void botonPedirCarrito(View view) {
+    public void alertaConfirmarPedido(View view) {
+        AlertDialog alertDialog = new AlertDialog.Builder(Carrito.this).create();
+        alertDialog.setTitle("Confirmacion de pedido");
+        alertDialog.setIcon(R.drawable.logo_le_upscale_balanced_x4_1);
+        alertDialog.setMessage("¿Estás seguro de que quieres confirmar el pedido?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        pedirCarrito();
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    public void pedirCarrito() {
         ArrayList<Platos> copiaCarrito = new ArrayList<>(mesaSeleccionada.carritoMesa);
         Comandas nuevaComanda = new Comandas(mesaSeleccionada.numeroMesa, copiaCarrito, false);
         mesaSeleccionada.carritoMesa.clear();
