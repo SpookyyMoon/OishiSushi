@@ -1,5 +1,6 @@
 package com.example.oishisishi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +38,8 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
     FrameLayout circuloNumeroCarrito;
     TextView numeroItems;
     Button botonVerCuenta;
+
+    boolean mesaTieneComandaAtendida, mesaTieneComandaPendiente;
 
     @Override
     protected void onResume() {
@@ -145,88 +149,102 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
     public void mostrarPopup(Platos plato) {
         final int[] cantidad = {0};
 
-        ConstraintLayout oscurecerFondo = findViewById(R.id.oscurecerFondo);
-        ImageView imagenPlatoSelector = findViewById(R.id.imagenPlatoSelector);
-        TextView nombrePlatoSelector = findViewById(R.id.nombrePlatoSelector);
-        TextView unidadesPlatoSelector = findViewById(R.id.unidadesPlatoSelector);
-        TextView precioPlatoSelector = findViewById(R.id.precioPlatoSelector);
-        TextView cantidadPlatoSelector = findViewById(R.id.cantidadPlatoSelector);
-        ImageView botonMasPlatoSelector = findViewById(R.id.botonMasPlatoSeleccion);
-        ImageView botonMenosPlatoSelector = findViewById(R.id.botonMenosPlatoSelector);
-        ImageView botonCerrarPlatoSelector = findViewById(R.id.botonCerrar);
-        Button botonAddPlatoSelector = findViewById(R.id.botonAddPlatoSeleccion);
-
-        oscurecerFondo.setVisibility(View.VISIBLE);
-        nombrePlatoSelector.setText(plato.nombrePlato);
-        unidadesPlatoSelector.setText(plato.unidadesPlato + "Uds.");
-        precioPlatoSelector.setText(plato.precioPlato + "€");
-        cantidadPlatoSelector.setText(String.valueOf(cantidad[0]));
-
-        switch (plato.nombrePlato) {
-            case "Nigiri de Gambas":
-                imagenPlatoSelector.setImageResource(R.drawable.sushi_nigiri_gamba);
-                break;
-            case "Nigiri de Atún":
-                imagenPlatoSelector.setImageResource(R.drawable.sushi_nigiri_atun);
-                break;
-            case "Nigiri de Salmón":
-                imagenPlatoSelector.setImageResource(R.drawable.sushi_nigiri_salmon);
-                break;
-            case "Hosomaki":
-                imagenPlatoSelector.setImageResource(R.drawable.roll_hosomaki);
-                break;
-            case "Futomaki":
-                imagenPlatoSelector.setImageResource(R.drawable.roll_futomaki);
-                break;
-            case "Ramen Miso":
-                imagenPlatoSelector.setImageResource(R.drawable.ramen_miso);
-                break;
+        if (mesaTieneComandaPendiente) {
+            AlertDialog alertDialog = new AlertDialog.Builder(Carta.this).create();
+            alertDialog.setTitle("Pedido pendiente");
+            alertDialog.setIcon(R.drawable.logo_le_upscale_balanced_x4_1);
+            alertDialog.setMessage("Hay un pedido pendiente. No puedes añadir nada al carrito hasta que se acepte");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
+        else {
+            ConstraintLayout oscurecerFondo = findViewById(R.id.oscurecerFondo);
+            ImageView imagenPlatoSelector = findViewById(R.id.imagenPlatoSelector);
+            TextView nombrePlatoSelector = findViewById(R.id.nombrePlatoSelector);
+            TextView unidadesPlatoSelector = findViewById(R.id.unidadesPlatoSelector);
+            TextView precioPlatoSelector = findViewById(R.id.precioPlatoSelector);
+            TextView cantidadPlatoSelector = findViewById(R.id.cantidadPlatoSelector);
+            ImageView botonMasPlatoSelector = findViewById(R.id.botonMasPlatoSeleccion);
+            ImageView botonMenosPlatoSelector = findViewById(R.id.botonMenosPlatoSelector);
+            ImageView botonCerrarPlatoSelector = findViewById(R.id.botonCerrar);
+            Button botonAddPlatoSelector = findViewById(R.id.botonAddPlatoSeleccion);
 
-        botonMasPlatoSelector.setOnClickListener(v -> {
-            cantidad[0]++;
+            oscurecerFondo.setVisibility(View.VISIBLE);
+            nombrePlatoSelector.setText(plato.nombrePlato);
+            unidadesPlatoSelector.setText(plato.unidadesPlato + "Uds.");
+            precioPlatoSelector.setText(plato.precioPlato + "€");
             cantidadPlatoSelector.setText(String.valueOf(cantidad[0]));
-        });
 
-        botonMenosPlatoSelector.setOnClickListener(v -> {
-            if(cantidad[0] > 0) {
-                cantidad[0]--;
+            switch (plato.nombrePlato) {
+                case "Nigiri de Gambas":
+                    imagenPlatoSelector.setImageResource(R.drawable.sushi_nigiri_gamba);
+                    break;
+                case "Nigiri de Atún":
+                    imagenPlatoSelector.setImageResource(R.drawable.sushi_nigiri_atun);
+                    break;
+                case "Nigiri de Salmón":
+                    imagenPlatoSelector.setImageResource(R.drawable.sushi_nigiri_salmon);
+                    break;
+                case "Hosomaki":
+                    imagenPlatoSelector.setImageResource(R.drawable.roll_hosomaki);
+                    break;
+                case "Futomaki":
+                    imagenPlatoSelector.setImageResource(R.drawable.roll_futomaki);
+                    break;
+                case "Ramen Miso":
+                    imagenPlatoSelector.setImageResource(R.drawable.ramen_miso);
+                    break;
             }
-            else{
-                cantidad[0] = 0;
-            }
-            cantidadPlatoSelector.setText(String.valueOf(cantidad[0]));
-        });
 
-        botonCerrarPlatoSelector.setOnClickListener(v -> {
-            oscurecerFondo.setVisibility(View.INVISIBLE);
-        });
-
-        botonAddPlatoSelector.setOnClickListener(v -> {
-            oscurecerFondo.setVisibility(View.INVISIBLE);
-            for (int i = 0; i < cantidad[0]; i++) {
-                mesaSeleccionada.carritoMesa.add(plato);
-            }
-
-            circuloNumeroCarrito.setVisibility(View.VISIBLE);
-            numeroItems.setVisibility(View.VISIBLE);
-            numeroItems.setText(String.valueOf(mesaSeleccionada.carritoMesa.size()));
-
-            Call<Mesas> call = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
-            call.enqueue(new Callback<Mesas>() {
-                @Override
-                public void onResponse(Call<Mesas> call, Response<Mesas> response) {
-                    if (response.isSuccessful()) {
-                        Log.d("onResponse mesas", "Plato añadido al carrito -> " + plato.nombrePlato);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Mesas> call, Throwable t) {
-                    Log.e("onFailure mesas", "Error al añadir plato", t);
-                }
+            botonMasPlatoSelector.setOnClickListener(v -> {
+                cantidad[0]++;
+                cantidadPlatoSelector.setText(String.valueOf(cantidad[0]));
             });
-        });
+
+            botonMenosPlatoSelector.setOnClickListener(v -> {
+                if (cantidad[0] > 0) {
+                    cantidad[0]--;
+                } else {
+                    cantidad[0] = 0;
+                }
+                cantidadPlatoSelector.setText(String.valueOf(cantidad[0]));
+            });
+
+            botonCerrarPlatoSelector.setOnClickListener(v -> {
+                oscurecerFondo.setVisibility(View.INVISIBLE);
+            });
+
+            botonAddPlatoSelector.setOnClickListener(v -> {
+                oscurecerFondo.setVisibility(View.INVISIBLE);
+                for (int i = 0; i < cantidad[0]; i++) {
+                    mesaSeleccionada.carritoMesa.add(plato);
+                }
+
+                circuloNumeroCarrito.setVisibility(View.VISIBLE);
+                numeroItems.setVisibility(View.VISIBLE);
+                numeroItems.setText(String.valueOf(mesaSeleccionada.carritoMesa.size()));
+
+                Call<Mesas> call = ApiAdapter.getApiService().updateMesas(mesaSeleccionada.numeroMesa, mesaSeleccionada);
+                call.enqueue(new Callback<Mesas>() {
+                    @Override
+                    public void onResponse(Call<Mesas> call, Response<Mesas> response) {
+                        if (response.isSuccessful()) {
+                            Log.d("onResponse mesas", "Plato añadido al carrito -> " + plato.nombrePlato);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Mesas> call, Throwable t) {
+                        Log.e("onFailure mesas", "Error al añadir plato", t);
+                    }
+                });
+            });
+        }
     }
 
     private void verificarComandaDeMesa() {
@@ -242,13 +260,25 @@ public class Carta extends AppCompatActivity implements Callback<List<Platos>> {
 
                 List<Comandas> comandas = response.body();
 
-                boolean mesaTieneComandaAtendida = false;
+                mesaTieneComandaAtendida = false;
+                mesaTieneComandaPendiente = false;
 
                 for (Comandas c : comandas) {
-                    if (c.numeroMesa == mesaSeleccionada.numeroMesa && c.atendidaComanda) {
-                        mesaTieneComandaAtendida = true;
-                        break;
+                    if (c.numeroMesa == mesaSeleccionada.numeroMesa) {
+                        if (!c.atendidaComanda) {
+                            mesaTieneComandaPendiente = true;
+                        }
+
+                        if(c.atendidaComanda) {
+                            mesaTieneComandaAtendida = true;
+                        }
                     }
+                }
+
+                if (mesaTieneComandaPendiente) {
+                    botonAtras.setVisibility(View.GONE);
+                    botonVerCuenta.setVisibility(View.VISIBLE);
+                    return;
                 }
 
                 if (mesaTieneComandaAtendida) {
