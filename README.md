@@ -27,7 +27,11 @@ La aplicación móvil permite a los usuarios seleccionar una mesa, consultar la 
 
 ## Tecnologías utilizadas:
 
-- Lenguajes: Java, XML.
+- **Lenguaje principal:** Java  
+- **Interfaz gráfica:** JavaFX + XML  
+- **Comunicación con backend:** Retrofit  
+- **Backend:** Node.js + Express + MongoDB Atlas (API REST)  
+- **Gestión de datos:** Mongoose  
   
 ---
 
