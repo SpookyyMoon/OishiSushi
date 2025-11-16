@@ -1,0 +1,391 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\graphicspath{ {./imagenes/} }
+
+\geometry{margin=2.5cm}
+\begin{document}
+    \begin{titlepage}
+    \centering
+    {\bfseries\LARGE Oishii Sushi (APP Móvil y Escritorio)\par}
+    \vspace{2cm}
+    {\scshape\Huge Documentación de Arquitectura de Software\par}
+    \vspace{5cm}
+    \vfill
+    {\Large Jacobo Pérez de Torres\par}
+    \vfill
+    \end{titlepage}
+
+    \tableofcontents
+    \newpage
+
+    \section{Introducción}
+    Oishii Sushi es un conjunto de aplicaciones (Móvil y Escritorio) desarrollada como práctica para las asignaturas de Acceso de Datos, Programación multimedia y móvil y Desarrollo de Interfaces.
+    La aplicación móvil permite seleccionar una mesa del restuarante, hacer pedidos desde la carta y tramitar el pago de la cuenta. La aplicación de escritorio, recibe las comandas de los pedidos realizados
+    desde la APP y tramitarlas.
+    Ambas aplicaciones se comunican a traves de un backend con Express y MongoDB Atlas.
+    \section{Arquitectura de la Aplicación}
+    La aplicación se organiza siguiendo una arquitectura por capas que separa la interfaz de usuario, la lógica de negocio y el manejo de datos (Similar al modelo vista-controlador).
+    \begin{itemize}
+        \item \textbf{Capa de interfaz (UI):} Activities de Android Studio en XML y vistas de JavaFX FXML.
+        \item \textbf{Capa de lógica:} Gestiona el envío de datos entre vistas y activities, la lógica del negocio (Platos, comandas, carrito, cuenta...) y coordina la base de datos.
+        \item \textbf{Capa de datos:} Contiene el acceso a la base de datos y a la API.
+    \end{itemize}
+
+    \section{Diseño de la base de datos (MongoDB)}
+    En el backend se definen las siguientes colecciones de Items:
+    
+    \vspace{0.5cm}
+
+      - Comandas:
+        \begin{lstlisting}
+        numeroMesa: Number,
+        pedidoPlatos: Array,
+        atendidaComanda: Boolean
+        \end{lstlisting}
+        
+      - Platos:
+        \begin{lstlisting}
+        nombrePlato: String,
+        precioPlato: Number,
+        categoriaPlato: String,
+        unidadesPlato: Number    
+        \end{lstlisting}
+            
+      - Mesas:
+        \begin{lstlisting}
+        numeroMesa: Number,
+        ocupadaMesa: Boolean,
+        carritoMesa: Array
+        \end{lstlisting}
+    \newpage
+    \section{API}
+    La API sigue un modelo RESTful. Con los siguientes endpoints:
+
+    \vspace{0.5cm}
+
+    \begin{center}
+        \begin{tabularx}{0.9\textwidth}{|X|l|X|X|}
+            \hline
+            \textbf{Método} & \textbf{Endpoint} & \textbf{Descripción} & \textbf{Parámetros} \\
+            \hline
+            GET & /platos & Recibe la lista de platos & N/A\\
+            \hline
+            GET & /comandas & Recibe la lista de comandas & N/A\\
+            \hline
+            GET & /mesas & Recibe la lista de mesas & N/A\\
+            \hline
+            POST & /platos & Añade un nuevo plato (Sin uso actual) & N/A\\
+            \hline
+            POST & /comandas & Añade una nueva comanda & N/A\\
+            \hline
+            POST & /mesas & Añade una nueva mesa & N/A\\
+            \hline
+            PUT & /platos & Actualiza un plato (Sin uso actual) & N/A\\
+            \hline
+            PUT & /comandas/:numeroMesa & Actualiza la información de una comanda & numeroMesa\\
+            \hline
+            PUT & /mesas/:numeroMesa & Acutaliza la información de una mesa & numeroMesa\\
+            \hline
+        \end{tabularx}
+    \end{center}
+
+    \newpage
+    \section{Diagrama de flujo de la APP}
+    A traves del siguiente diagrama se muestra el flujo de la aplicación móvil:
+
+    \vspace{0.5cm}
+
+    \begin{center}
+        \includegraphics[scale=0.4]{imagen1.png}
+    \end{center}
+
+    \section{Tecnologías utilizadas}
+    Para el desarrollo de la aplicación se han empleado las siguientes tecnologías:
+
+    \subsection{Frontend App móvil (Android Studio)}
+    \begin{itemize}
+      \item Lenguaje: Java.
+      \item Interfaz: XML.
+      \item Conexión con backend: Retrofit.
+    \end{itemize}
+    \subsection{Frontend Desktop (JavaFX)}
+    \begin{itemize}
+      \item Lenguaje: Java.
+      \item Interfaz: FXML.
+      \item Conexión con backend: Retrofit.
+    \end{itemize}
+    \subsection{Servidor Backend}
+    \begin{itemize}
+      \item Lenguaje: JavaScript (Node.js).
+      \item Framework: Express.js.
+      \item Base de datos: MongoDB.
+      \item ODM: Mongoose.
+    \end{itemize}
+    \section{Clases e Interfaces}
+    En esta sección se muestra una lista de todas las clases existentes.
+
+    \subsection{Clases principales (Móvil y Escritorio)}
+    A continuación se describen las principales clases e interfaces que componen la aplicación:
+
+    \begin{itemize}
+        \item \textbf{Comandas} (entidad)
+        \begin{itemize}
+            \item Contiene los atributos de una comanda: int numeroMesa, \texttt{List<Platos>} pedidoPlatos, boolean atendidoComanda.
+            \item Representa el modelo de datos de las comandas de la aplicación.
+            \item En la aplicación de escritorio esta clase varía añadiendo en atributos el id de mongo, para poder actualizar cada comanda.
+        \end{itemize}
+
+        \item \textbf{Platos} (entidad)
+        \begin{itemize}
+            \item Contiene los atributos de una comanda: String nombrePlato, double precioPlato, String categoriaPlato, int unidadesPlato.
+            \item Representa el modelo de datos de los platos de la aplicación.
+        \end{itemize}
+
+        \item \textbf{Mesas} (entidad)
+        \begin{itemize}
+            \item Contiene los atributos de una comanda: int numeroMesa, boolean ocupadaMesa, \texttt{List<Comandas>} comandasMesa, \texttt{List<Platos>} carritoMesa.
+            \item Representa el modelo de datos de las mesas de la aplicación.
+        \end{itemize}
+
+        \item \textbf{Mesas} (entidad)
+        \begin{itemize}
+            \item Contiene los atributos de una comanda: int numeroMesa, boolean ocupadaMesa, \texttt{List<Comandas>} comandasMesa, \texttt{List<Platos>} carritoMesa.
+            \item Representa el modelo de datos de las mesas de la aplicación.
+        \end{itemize}
+
+
+        \item \textbf{APIService} (servicio)
+        \begin{itemize}
+            \item Conecta con los endpoints del backend para establecer los metodos de tratado de datos.
+        \end{itemize}
+
+
+        \item \textbf{ApiAdapter} (adaptador)
+        \begin{itemize}
+            \item Se conecta con la URL del backend a traves de retrofit,
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Clases exclusivas de Android Studio}
+    \begin{itemize}
+        \item {\textbf{MainActivity}}
+        \begin{itemize}
+            \item Controlador del layout \texttt{activity\_main.xml}
+            \item Inicia la aplicación y permite acceder a selección mesas.
+        \end{itemize}
+
+        \item {\textbf{SeleccionMesa}}
+        \begin{itemize}
+            \item Controlador del layout \texttt{seleccion\_mesa.xml}
+            \item Permite la selección de una mesa, comprueba cuáles están ocupadas, regula el acceso a mesas ocupadas y envía al usuario a Carrito.
+        \end{itemize}
+
+        \item {\textbf{Carta}}
+        \begin{itemize}
+            \item Controlador del layout \texttt{carta.xml}
+            \item Permite la selección de platos, retroceder para liberar la mesa y desplazarse al carrito.
+        \end{itemize}
+
+        \item {\textbf{ContenedorPlatosAdaptador}}
+        \begin{itemize}
+            \item Adaptador que controla el RecycleView de la clase Carta.
+        \end{itemize}
+
+        \item {\textbf{Carrito}}
+        \begin{itemize}
+            \item Controlador del layout \texttt{carrito.xml}
+            \item Permite visualizar el carrito con sus correspondientes platos y hacer un pedido.
+        \end{itemize}
+
+        \item {\textbf{ContenedorCarritoAdaptador}}
+        \begin{itemize}
+            \item Adaptador que controla el RecycleView de la clase Carrito.
+        \end{itemize}
+
+        \item {\textbf{CarritoVacio}}
+        \begin{itemize}
+            \item Controlador del layout \texttt{carrito\_vacio.xml}
+            \item Permite visualizar el carrito vacio y regresar a la carta.
+        \end{itemize}
+
+        \item {\textbf{Cuenta}}
+        \begin{itemize}
+            \item Controlador del layout \texttt{ver\_cuenta.xml}
+            \item Permite visualizar la cuenta total de pedidos, pagar y salir del restaurante.
+        \end{itemize}
+
+        \item {\textbf{ContenedorCuentaAdaptador}}
+        \begin{itemize}
+            \item Adaptador que controla el RecycleView de la clase Cuenta.
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Clases exclusivas de JavaFX}
+    \begin{itemize}
+        \item {\textbf{HelloController}}
+        \begin{itemize}
+            \item Controlador del layout principal, contiene todos los métodos y funciones.
+        \end{itemize}
+    \end{itemize}
+
+  \section{Problemas encontrados}
+  Durante el desarrollo de las aplicaciones móvil y de escritorio se encontraron los siguientes problemas:
+
+  \section{Problemas encontrados}
+  Durante el desarrollo de las aplicaciones móvil y de escritorio surgieron varios problemas, algunos de ellos bastante curiosos y otros más técnicos, que fueron solucionados de diferentes maneras:
+
+    \begin{itemize}
+        \item \textbf{Actualización de datos en la API:} Al principio los cambios realizados en la aplicación no se reflejaban en el backend, lo que generaba confusión al probar los pedidos.  
+        \textit{Solución:} Aprendí a usar correctamente los métodos PUT y PATCH con Retrofit para que los objetos se sincronizaran correctamente (\cite{futurestud, geeksforgeeks, programacionymas}).
+
+        \item \textbf{Carga de imágenes en RecyclerView:} Las imágenes de los platos a veces no se cargaban o se veían tarde, haciendo que la interfaz pareciera lenta.  
+        \textit{Solución:} Implementé carga asíncrona en los ViewHolders para que la UI no se bloquease y todo se mostrara correctamente (\cite{stackoverflow}).
+
+        \item \textbf{Eventos onClick en RecyclerView:} Al principio, los clics en los elementos personalizados no funcionaban bien.  
+        \textit{Solución:} Moví los onClickListener dentro del adaptador y los pasé al Activity correspondiente para que respondieran correctamente (\cite{stackoverflow, github}).
+
+        \item \textbf{Compatibilidad de objetos en Android Studio:} Intentar pasar objetos entre Activities daba errores de tipo “no se puede castear a Parcelable”.  
+        \textit{Solución:} Implementé correctamente la interfaz \texttt{Parcelable} en los objetos que necesitaba transferir (\cite{stackoverflow}).
+
+        \item \textbf{Conexión de JavaFX con NodeJS:} La aplicación de escritorio no lograba conectarse bien con la API, lo que hacía que los datos no se actualizaran.  
+        \textit{Solución:} Usé Retrofit también en JavaFX y gestioné correctamente los hilos para evitar bloqueos (\cite{chatgpt, stackoverflow}).
+
+        \item \textbf{Visibilidad de elementos en Android Studio:} Algunos botones se veían bien en el editor gráfico pero no aparecían en el dispositivo al ejecutar la app.  
+        \textit{Solución:} Comprobé las restricciones, la jerarquía de layouts y que los IDs coincidieran correctamente (\cite{stackoverflow, youtube}).
+
+        \item \textbf{Sincronización con MongoDB:} Me costó actualizar arrays de objetos y mantener los datos de pedidos y mesas sincronizados entre backend y frontend.  
+        \textit{Solución:} Aprendí a usar correctamente los métodos de MongoDB Realm y probé varias veces PUT y POST hasta que los cambios se guardaban correctamente (\cite{mongodb}).
+    \end{itemize}
+
+    \section{Bibliografía}
+    Para llevar a cabo el desarrollo de esta documentación y siendo la primera vez que tenía que simular una API inexistente y documentar la arquitectura de un
+    software, he necesitado consultar diversas fuentes, desde StackOverflow hasta consultas sobre Latex a chatgpt. Todas las fuentes empleadas se citan a continuación:
+
+    \begin{thebibliography}{9}
+
+    \bibitem{programacionymas}
+    Programacionymas. \textit{Consumir una API usando retrofit}. 
+    Disponible en: \url{https://programacionymas.com/blog/consumir-una-api-usando-retrofit}.
+
+    \bibitem{geeksforgeeks}
+    Geeksforgeeks. \textit{Como actualizar datos en una API usando retrofit en Android Studio}. 
+    Disponible en: \url{https://www.geeksforgeeks.org/android/how-to-update-data-in-api-using-retrofit-in-android/}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como fijar una imagen en un view holder de forma asíncrona}. 
+    Disponible en: \url{https://stackoverflow.com/questions/33575011/how-to-set-image-to-a-view-holder-asynchronously}.
+
+    \bibitem{stackoverflow}
+    StackOverflow \textit{Como definir una forma circular en Android Studio a traves de un archivo xml drawable}. 
+    Disponible en: \url{https://stackoverflow.com/questions/3185103/how-to-define-a-circle-shape-in-an-android-xml-drawable-file}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como implementar un onClickListener en un viewholder customizado en mi RecyclerView}. 
+    Disponible en: \url{https://stackoverflow.com/questions/46640897/how-to-implement-onclicklistener-for-custom-viewholder-in-my-recycler-view}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Eliminar y refrescar en un RecyclerView}. 
+    Disponible en: \url{https://stackoverflow.com/questions/68780473/delete-and-refresh-in-recyclerview}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{JavaFX Como hacer una imagen clickeable en Scene Builder}. 
+    Disponible en: \url{https://stackoverflow.com/questions/40495658/javafx-how-make-a-clickable-image-using-scenebuilder}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como conectar un cliente de JavaFX a un servidor de NodeJS}. 
+    Disponible en: \url{https://stackoverflow.com/questions/58750418/connecte-javafx-client-to-a-nodejs-server}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Android Studio - Objeto no puede ser casteado a Parceable}. 
+    Disponible en: \url{https://stackoverflow.com/questions/41924068/object-cannot-be-cast-as-parcelable}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Android Studio - Como cambiar el color del borde de un SearchView}. 
+    Disponible en: \url{https://stackoverflow.com/questions/36888511/change-border-color-of-a-searchview}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Android Studio - Ejemplo simple de un RecyclerView}. 
+    Disponible en: \url{https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Métodos PUT y GET con router.put y router.delete no funcionan (express)}. 
+    Disponible en: \url{https://stackoverflow.com/questions/64842029/put-and-get-methods-with-router-put-and-router-delete-not-working-express}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Error "The requested module does not provide and export named default"}. 
+    Disponible en: \url{https://stackoverflow.com/questions/71022803/the-requested-module-does-not-provide-an-export-named-default-error-but}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como crear un contenedor rectangular alrededor de los elementos de una activity de Android Studio}. 
+    Disponible en: \url{https://stackoverflow.com/questions/40582555/how-to-draw-a-rectangle-box-around-elements-of-android-activity}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como crear un rectángulo con fondo transparente en Android Studio}. 
+    Disponible en: \url{https://stackoverflow.com/questions/73084654/how-to-draw-rectangle-with-transparent-black-and-white-background-in-android-can}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como cambiar la imagen de un ImageView al pulsar un botón en Android Studio}. 
+    Disponible en: \url{https://stackoverflow.com/questions/24755849/android-imagebutton-how-to-change-the-image-when-button-is-clicked}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Como arreglar el error "Call requires API level 26 current min is 25" en Android Studio}. 
+    Disponible en: \url{https://stackoverflow.com/questions/56695997/how-to-fix-call-requires-api-level-26-current-min-is-25-error-in-android}.
+
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Botón de Android Studio aparece en el editor gráfico pero no en el dispositivo en ejecución}. 
+    Disponible en: \url{https://stackoverflow.com/questions/24116403/android-button-shows-in-graphical-layout-but-not-on-device}.
+    
+    \bibitem{stackoverflow}
+    StackOverflow. \textit{Simple Android Alert Dialog}. 
+    Disponible en: \url{https://stackoverflow.com/questions/26097513/android-simple-alert-dialog}.
+
+    \bibitem{mongodb}
+    MongoDB. \textit{Como empezar con el Driver de Java - Java Sync Driver - MondoDB Docs}. 
+    Disponible en: \url{https://www.mongodb.com/docs/drivers/java/sync/current/get-started/#quick-start}.
+
+    \bibitem{mongodb}
+    MongoDB. \textit{Java y MongoDB}. 
+    Disponible en: \url{https://www.mongodb.com/resources/languages/java}.
+
+    \bibitem{mongodb}
+    MongoDB. \textit{Uso de android studio y mongo DB realm - Cómo pushear un update a un Array en mi objeto}. 
+    Disponible en: \url{https://www.mongodb.com/community/forums/t/using-android-studio-and-mongo-db-realm-how-to-push-an-update-to-an-array-in-my-object/201919}.
+
+    \bibitem{sentry}
+    Sentry Answers. \textit{Redondear un decimal a N posiciones en Java}. 
+    Disponible en: \url{https://sentry.io/answers/round-a-number-to-n-decimal-places-in-java/}.
+
+    \bibitem{futurestud}
+    Future Stud. \textit{Retrofit2 como actualizar objetos en el servidor put vs patch}. 
+    Disponible en: \url{https://futurestud.io/tutorials/retrofit-2-how-to-update-objects-on-the-server-put-vs-patch}.
+
+    \bibitem{github}
+    GitHub. \textit{Ejemplo de onClickListener}. 
+    Disponible en: \url{https://gist.github.com/TheItachiUchiha/66322bc3a998bae23e56}.
+
+    \bibitem{youtube}
+    Youtube. \textit{SearchView con RecyclerView en Android Studio}. 
+    Disponible en: \url{https://www.youtube.com/watch?v=tQ7V7iBg5zE}.
+
+    \bibitem{chatgpt} OpenAI. ChatGPT \textit{Ayuda con retrofit en Android Studio} \url{https://chatgpt.com}
+    \bibitem{chatgpt} OpenAI. ChatGPT \textit{Consulta sobre el reciclado de clases de Retrofit y clases de Java de Android Studio a JavaFX} \url{https://chatgpt.com}
+    \bibitem{chatgpt} OpenAI. ChatGPT \textit{Ayuda con el paso de datos de una activity a otra en Android Studio} \url{https://chatgpt.com}
+    \bibitem{chatgpt} OpenAI. ChatGPT \textit{Ayuda con la documentación en latex} \url{https://chatgpt.com}
+    \bibitem{chatgpt} OpenAI. ChatGPT \textit{Como emplear Log.d para registrar logs en logcat} \url{https://chatgpt.com}
+
+    \end{thebibliography}
+
+
+
+\end{document} 
