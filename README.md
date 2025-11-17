@@ -23,6 +23,13 @@ La aplicación móvil permite a los usuarios seleccionar una mesa, consultar la 
 
 - Adaptadores y listas dinámicas – Uso de RecyclerView con adaptadores personalizados para mostrar platos, carrito y cuenta con actualización automática.
 
+
+---
+
+## Diseño en figma:
+
+https://www.figma.com/design/9dLPDXMIL2y7yJOScwnj3y/OishiSushi?node-id=0-1&t=E6AiOLfoNC8NQhxM-1
+
 ---
 
 ## Tecnologías utilizadas:
